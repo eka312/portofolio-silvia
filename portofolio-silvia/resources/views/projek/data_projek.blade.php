@@ -43,7 +43,7 @@
                                 <th scope="row">{{$loop->iteration}}</th>
                                 <td>
                                     @if($item->gambar)
-                                        <img src="{{ asset('image_projek/' . $item->gambar) }}" alt="Gambar Projek" width="150">
+                                        <img src="{{ asset('image_projek/' . $item->gambar) }}" alt="Gambar Projek" width="250">
                                     @else
                                         <p>Tidak ada gambar</p>
                                     @endif

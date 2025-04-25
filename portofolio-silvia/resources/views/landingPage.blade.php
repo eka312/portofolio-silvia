@@ -87,8 +87,11 @@
             <li class="nav-item"><a class="nav-link active" href="#beranda">Beranda</a></li>
             <li class="nav-item"><a class="nav-link" href="#about">Tentang Saya</a></li>
             <li class="nav-item"><a class="nav-link" href="#projects">Projects</a></li>
-            <li class="nav-item"><a class="nav-link" href="#contact">Kontak</a></li>
-            <li class="nav-item"><a class="nav-link" href="{{ route('login') }}">Login</a></li>
+            @guest
+              <li class="nav-item"><a class="nav-link" href="{{ route('login') }}">Login</a></li>
+            @else
+              <li class="nav-item"><a class="nav-link" href="/data_projek">Masuk</a></li>
+            @endguest
           </ul>
         </div>
       </div>
@@ -156,21 +159,23 @@
             <div class="row g-4">
               @foreach( $projek as $item )
                 <div class="col-md-4">
-                  <div class="card shadow h-100">
+                  <div class="card shadow h-100 w-100">
                     <!-- Menampilkan gambar projek -->
                     <img src="{{ asset('image_projek/' . $item->gambar) }}" class="card-img-top" alt="{{ $item->judul }}" />
 
                     <div class="card-body">
-                      <h5 class="card-title">{{ $item->judul }}</h5>
+                      <h5 class="card-title text-capitalize">{{ $item->judul }}</h5>
                       <p class="card-text">{{ $item->deskripsi }}</p>
                       @if($item->demo_url)
                         <a href="{{ $item->demo_url }}" class="btn btn-primary" target="_blank">Demo</a>
                       @else
                         <button class="btn btn-secondary" disabled>tidak tersedia</button>
                       @endif
+                      <a href="{{ route('projek.detail', $item->slug) }}" class="btn btn-primary" target="_blank">Detail</a>
                     </div>
                   </div>
                 </div>
+                
               @endforeach
             </div>
         </div>
@@ -273,6 +278,24 @@
         navbar.classList.toggle('scrolled', window.scrollY > 50);
       });
     </script>
+
+    <script>
+      window.onload = function() {
+        // Cek apakah URL mengandung hash (#)
+        if (window.location.hash) {
+          // Ambil bagian setelah tanda hash (#)
+          const targetElement = document.querySelector(window.location.hash);
+          
+          // Jika elemen ditemukan, lakukan scroll ke elemen tersebut
+          if (targetElement) {
+            targetElement.scrollIntoView({
+              behavior: "smooth"  // Efek scroll halus
+            });
+          }
+        }
+      };
+    </script>   
+
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>

@@ -44,6 +44,8 @@ Route::middleware(['auth'])->group(function () {
         // Routing tambah projek
         Route::get('/tambah_projek', 'create');
         Route::post('/tambah_projek', 'store');
+
+        Route::get('/detail_projek/{slug}','show')->name('projek.detail');
     
         // Routing ubah projek
         Route::get('/ubah_projek/{id}', 'edit');

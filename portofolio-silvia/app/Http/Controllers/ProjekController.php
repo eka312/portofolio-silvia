@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use App\Models\projek;
+
 
 class ProjekController extends Controller
 {
@@ -36,6 +38,9 @@ class ProjekController extends Controller
             'demo_url' => 'nullable|url',
         ]);
 
+        // Membuat slug otomatis berdasarkan judul
+        $slug = Str::slug($request->judul);
+
         // Proses upload gambar
         if ($request->hasFile('gambar')) {
             $file = $request->file('gambar');
@@ -49,6 +54,7 @@ class ProjekController extends Controller
         $projek = projek::create([
             'gambar' => $namaFile,
             'judul' => $request->judul,
+            'slug' => $slug,
             'deskripsi' => $request->deskripsi,
             'demo_url' => $request->demo_url,
         ]);
@@ -60,9 +66,10 @@ class ProjekController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(string $slug)
     {
-        //
+        $projek = projek::where('slug', $slug)->firstOrFail();
+        return view('projek.detail_projek', compact('projek'));
     }
 
     /**
@@ -88,6 +95,9 @@ class ProjekController extends Controller
             'demo_url' => 'nullable|url',
             'gambar' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048',
         ]);
+
+         // Membuat slug otomatis berdasarkan judul
+        $slug = Str::slug($request->judul);
     
         // Cek jika user upload gambar baru
         if ($request->hasFile('gambar')) {
@@ -106,6 +116,7 @@ class ProjekController extends Controller
     
         // Update data lain
         $projek->judul = $request->judul;
+        $projek->slug = $slug;
         $projek->deskripsi = $request->deskripsi;
         $projek->demo_url = $request->demo_url;
         $projek->save();

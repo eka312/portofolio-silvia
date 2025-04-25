@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('judul');
             $table->longtext('deskripsi')->nullable();
             $table->string('demo_url')->nullable();
+            $table->string('slug')->unique()->after('judul');
             $table->timestamps();
         });
     }

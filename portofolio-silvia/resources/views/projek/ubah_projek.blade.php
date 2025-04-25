@@ -1,6 +1,6 @@
 @extends('templating.master')
 
-@section('judul_halaman', 'ubah Data Projek | My Portfolio')
+@section('judul_halaman', 'Ubah Data Projek | My Portfolio')
 
 @section('konten')
     <div class="container text-capitalize">
