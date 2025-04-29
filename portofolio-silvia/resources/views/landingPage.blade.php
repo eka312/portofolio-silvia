@@ -165,7 +165,9 @@
 
                     <div class="card-body">
                       <h5 class="card-title text-capitalize">{{ $item->judul }}</h5>
-                      <p class="card-text">{{ $item->deskripsi }}</p>
+                      <p class="card-text">
+                        {{ Str::limit($item->deskripsi, 100) }} 
+                      </p>
                       @if($item->demo_url)
                         <a href="{{ $item->demo_url }}" class="btn btn-primary" target="_blank">Demo</a>
                       @else

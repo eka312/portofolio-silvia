@@ -33,7 +33,7 @@
                         </div>
                         @enderror
                     </div>
-                    <div class="form-group">
+                    <div class="form-group mb-2">
                         <div class="custom-control custom-checkbox">
                             <input class="custom-control-input" id="rememberPasswordCheck" type="checkbox"/>
                             <label class="custom-control-label" for="rememberPasswordCheck">Remember password</label>
@@ -43,9 +43,6 @@
                         <input type="submit" class="btn btn-primary" value="Login">
                     </div>
                 </form>
-            </div>
-            <div class="card-footer text-center py-3">
-                <div class="small"><a href="/register">Butuh akun? Daftar sekarang!</a></div>
             </div>
         </div>
     </div>

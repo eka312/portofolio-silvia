@@ -19,13 +19,6 @@ use App\Http\Controllers\TemplateController;
 |
 */
 
-Route::get('/uji1', function () {
-    return view('uji1');
-});
-
-Route::get('/uji2', function () {
-    return view('uji2');
-});
 
 Route::controller(TemplateController::class)->group(function () {
     // Routing halaman templating_login (Master Template untuk login/register)
@@ -44,8 +37,6 @@ Route::middleware(['auth'])->group(function () {
         // Routing tambah projek
         Route::get('/tambah_projek', 'create');
         Route::post('/tambah_projek', 'store');
-
-        Route::get('/detail_projek/{slug}','show')->name('projek.detail');
     
         // Routing ubah projek
         Route::get('/ubah_projek/{id}', 'edit');
@@ -55,6 +46,9 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/hapus_projek/{id}', 'destroy');
     });
 });
+
+//routing halaman detail projek
+Route::get('/detail_projek/{slug}', [ProjekController::class, 'show'])->name('projek.detail');
 
 
 Route::controller(AuthController::class)->group(function () {
